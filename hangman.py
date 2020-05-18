@@ -47,11 +47,15 @@ def Hangman():
                         if tries == 0:
                             print("you have lost")
                 else:
-                    print("You've already guessed this letter. Try again")     
+                    print("You've already guessed this letter. Try again")
+            
             elif len(guess) > 1:
                 if guess == winning_word:
                     print("correct you have won!")
                     break
+                elif guess == "hint":
+                    hint = winning_word[random.randint(0,len(winning_word)-1)]not in guessed
+                    print(hint)
                 else:
                     tries -= 1
                     print("wrong word. You have %d tries left" %tries)
