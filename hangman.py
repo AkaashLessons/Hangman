@@ -18,6 +18,19 @@ def check_if_won(winning_word, guessed):
             break
         won = True
     return won
+
+def check_one_letter_left(winning_word, guessed):
+    letters_left = []
+    for letter in list(set(winning_word)):
+        if letter not in guessed:
+            letters_left.append(letter)
+    return len(letters_left) == 1
+
+def get_hint(winning_word, guessed):
+    for letter in winning_word:
+        if letter not in guessed:
+            return letter
+
 def Hangman():
     print("H A N G M A N")
     player = input("type 'play' to play the game or type 'quit' to quit: ")
@@ -54,8 +67,12 @@ def Hangman():
                     print("correct you have won!")
                     break
                 elif guess == "hint":
-                    hint = winning_word[random.randint(0,len(winning_word)-1)]not in guessed
-                    print(hint)
+                    if check_one_letter_left(winning_word,guessed) is True:
+                        print("You only have to guess one more letter, no hint for you!")
+                    else:
+                        hint = get_hint(winning_word, guessed)
+                        guessed.append(hint)
+                        print("Ok, here's a letter on us")
                 else:
                     tries -= 1
                     print("wrong word. You have %d tries left" %tries)
